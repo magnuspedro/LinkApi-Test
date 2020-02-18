@@ -38,7 +38,15 @@ const TransactionSchema = new mongoose.Schema(
       ],
       value: Number
     },
-    org_id: Number,
+    org_id: {
+      name: String,
+      people_count: Number,
+      owner_id: Number,
+      address: String,
+      active_flag: Boolean,
+      cc_email: String,
+      value: Number
+    },
     stage_id: Number,
     title: String,
     value: Number,
