@@ -9,7 +9,7 @@ class PipedriveRequest {
   async get (params) {
     try {
       const response = await axios.get(this._url, { params })
-      return response
+      return response.data
     } catch (error) {
       console.error(new Date() + ': Status code: ' + error.response.status)
       console.error(error.response.data)

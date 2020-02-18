@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const TransactionSchema = new mongoose.Schema({
-  _id: Number,
+  id: Number,
   creator_user_id: {
     id: Number,
     name: String,
@@ -35,7 +35,7 @@ const TransactionSchema = new mongoose.Schema({
         primary: Boolean
       }
     ],
-    value: 1
+    value: Number
   },
   org_id: Number,
   stage_id: Number,
@@ -90,7 +90,10 @@ const TransactionSchema = new mongoose.Schema({
   owner_name: String,
   cc_email: String,
   org_hidden: Boolean,
-  person_hidden: Boolean
+  person_hidden: Boolean,
+  integration_status: {
+    sent: { type: Boolean, default: false }
+  }
 })
 
 module.exports = mongoose.model('Transaction', TransactionSchema)
