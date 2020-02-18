@@ -1,11 +1,15 @@
 const express = require('express')
 const cors = require('cors')
 const routes = require('./routes')
-require('dotenv').config()
+const dotenv = require('dotenv').config()
 require('./database')
 const IntegrationTask = require('./Tasks/IntegrationTask')
 
 const app = express()
+
+if (dotenv.error) {
+  throw Error(dotenv.error)
+}
 
 app.listen(3000)
 app.use(cors())
