@@ -8,6 +8,7 @@ class Database {
 
   async _connect () {
     try {
+      mongoose.set('useCreateIndex', true)
       await mongoose.connect(
         `mongodb+srv://${env.get('DB_USER').asString()}:${env
           .get('DB_PASSWORD')
