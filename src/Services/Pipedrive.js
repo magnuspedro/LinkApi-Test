@@ -1,7 +1,7 @@
 const env = require('env-var')
-const PipedriveRequest = require('../../Utils/Requests/PipedriveRequest')
-const TransactionDao = require('../../Daos/TransactionDao')
-const IntegrationDao = require('../../Daos/IntegrationDao')
+const PipedriveRequest = require('../Utils/Requests/PipedriveRequest')
+const TransactionDao = require('../Daos/TransactionDao')
+const IntegrationDao = require('../Daos/IntegrationDao')
 
 class Pipedrive {
   async getWonDeal () {

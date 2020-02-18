@@ -22,8 +22,11 @@
     "dotenv": "^8.2.0",
     "env-var": "^6.0.1",
     "express": "^4.17.1",
+    "js2xmlparser": "^4.0.1",
+    "moment": "^2.24.0",
     "mongoose": "^5.9.1",
-    "node-cron": "^2.0.3"
+    "node-cron": "^2.0.3",
+    "querystring": "^0.2.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",

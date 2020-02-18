@@ -1,24 +1,26 @@
 const cron = require('node-cron')
-const Pipedrive = require('../Services/Pipedrive/Pipedrive')
+const Pipedrive = require('../Services/Pipedrive')
+const Biling = require('../Services/Bling')
 
 const pipedrive = new Pipedrive()
+const bling = new Biling()
 
-let integrationLock = false
+let pipedriveLock = false
+let blingLock = false
 
-const IntegrationTask = cron.schedule(
-  // '*/10 * * * *',
+const PipedriveTask = cron.schedule(
   '*/1 * * * *',
   async () => {
     try {
-      if (!integrationLock) {
-        integrationLock = true
+      if (!pipedriveLock) {
+        pipedriveLock = true
         console.log(new Date() + ': Retrieving new transactions...')
         await pipedrive.getWonDeal()
-        integrationLock = false
+        pipedriveLock = false
       }
     } catch (error) {
       console.error(new Date() + ': ' + error)
-      integrationLock = false
+      pipedriveLock = false
     }
   },
   {
@@ -26,4 +28,24 @@ const IntegrationTask = cron.schedule(
   }
 )
 
-module.exports = IntegrationTask
+const BlingTask = cron.schedule(
+  '*/1 * * * *',
+  async () => {
+    try {
+      if (!blingLock) {
+        blingLock = true
+        console.log(new Date() + ': Sending transactions...')
+        await bling.generateResponse()
+        blingLock = false
+      }
+    } catch (error) {
+      console.error(new Date() + ': ' + error)
+      blingLock = false
+    }
+  },
+  {
+    scheduled: false
+  }
+)
+
+module.exports = { PipedriveTask, BlingTask }

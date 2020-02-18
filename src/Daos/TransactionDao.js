@@ -15,6 +15,48 @@ class TransactionDao {
       console.error(error)
     }
   }
+
+  async findNotSent () {
+    try {
+      return TransactionSchema.find({
+        'integration_status.sent': false
+      })
+    } catch (error) {
+      console.error(new Date() + ': ' + error)
+    }
+  }
+
+  async updateStatus (id) {
+    try {
+      await TransactionSchema.updateOne(
+        { id: id },
+        { 'integration_status.sent': true }
+      )
+    } catch (error) {
+      console.error(new Date() + ': ' + error)
+    }
+  }
+
+  async findAll () {
+    try {
+      return TransactionSchema.find({
+        'integration_status.sent': true
+      })
+    } catch (error) {
+      console.error(new Date() + ': ' + error)
+    }
+  }
+
+  async findById (id) {
+    try {
+      return TransactionSchema.findOne({
+        id: id,
+        'integration_status.sent': true
+      })
+    } catch (error) {
+      console.error(new Date() + ': ' + error)
+    }
+  }
 }
 
 module.exports = TransactionDao
