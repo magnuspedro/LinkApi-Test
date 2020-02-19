@@ -3,11 +3,11 @@ const TransactionDao = require('../Daos/TransactionDao')
 class TransactionController {
   async index (request, response) {
     const transactionDao = new TransactionDao()
-    const transactions = await transactionDao.findAll()
-    if (transactions.length) {
+    const transactions = await transactionDao.findAll(request.query)
+    if (transactions.docs.length) {
       response.json(transactions)
     } else {
-      response.status(204).send({})
+      response.status(404).send({})
     }
   }
 
@@ -17,7 +17,7 @@ class TransactionController {
     if (transaction) {
       response.json(transaction)
     } else {
-      response.status(204).send({})
+      response.status(404).send({})
     }
   }
 }

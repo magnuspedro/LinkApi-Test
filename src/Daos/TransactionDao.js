@@ -37,11 +37,18 @@ class TransactionDao {
     }
   }
 
-  async findAll () {
+  async findAll ({ page = 1, limit = 10 }) {
+    const options = {
+      page: page,
+      limit: limit
+    }
     try {
-      return TransactionSchema.find({
-        'integration_status.sent': true
-      })
+      return await TransactionSchema.paginate(
+        {
+          'integration_status.sent': true
+        },
+        options
+      )
     } catch (error) {
       console.error(new Date() + ': ' + error)
     }
