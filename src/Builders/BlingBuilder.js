@@ -1,9 +1,14 @@
 const ConvertXml = require('../Utils/ConvertXml')
 const moment = require('moment')
 
+// it's not a Builder pattern really, it construct the object I need though
 class BlingBuilder {
+  constructor () {
+    this._transactionObject = {}
+  }
+
   add (transaction) {
-    const transactionObject = {
+    this._transactionObject = {
       data: moment(transaction.add_time).format('DD/MM/YYYY'),
       data_saida: moment(transaction.won_time).format('DD/MM/YYYY'),
       numero: transaction.id,
@@ -33,7 +38,15 @@ class BlingBuilder {
         }
       ]
     }
-    return ConvertXml.convertToXml(transactionObject)
+    return this
+  }
+
+  build () {
+    return ConvertXml.convertToXml(this._transactionObject)
+  }
+
+  get bling () {
+    return this._transactionObject
   }
 }
 

@@ -13,7 +13,7 @@ class Bling {
     const transactions = await transactionDao.findNotSent()
 
     for (const transaction of transactions) {
-      if (await blingRequest.post(blingBuilder.add(transaction))) {
+      if (await blingRequest.post(blingBuilder.add(transaction).build())) {
         transactionDao.updateStatus(transaction.id)
       }
     }
